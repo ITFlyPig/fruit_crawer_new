@@ -9,6 +9,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -44,5 +45,60 @@ public class MonthFruitImpl implements IMonthFruit{
 
     }
 
+    /**
+     * 获取所有存储的水果
+     * @param
+     * @return
+     */
+    public List<String> getFruits(){
+
+        List<MonthFruitBean> months = monthFruitDao.getAll();
+        if (months == null || months.size() == 0){
+            logger.info("查询到的每月对应的水果为空");
+            return null;
+        }
+
+        ArrayList<String> result = new ArrayList<String>();
+        for (MonthFruitBean bean : months){
+            if (TextUtil.isEmpty(bean.getFruitStr())){
+                continue;
+            }
+
+                String[] fruitArray = bean.getFruitStr().split("，");
+                addUnique(result, fruitArray);
+        }
+
+        System.out.println("获取到的水果：" + result.toString());
+        return result;
+
+
+    }
+
+    /**
+     * 添加
+     * @param result
+     * @param fruitArray
+     */
+    private void addUnique(List<String> result, String[] fruitArray){
+        if (result == null | fruitArray == null){
+            return;
+        }
+        int size = fruitArray.length;
+        for (int i = 0; i < size; i++){
+            String fruit = fruitArray[i].replaceAll(" ", "");
+            if (TextUtil.isEmpty(fruit)){
+                continue;
+            }
+            if (result.contains(fruit)){
+                continue;
+            }else {
+                result.add(fruit);
+            }
+        }
+    }
+
+    public List<MonthFruitBean> getAll(){
+        return monthFruitDao.getAll();
+    }
 
 }

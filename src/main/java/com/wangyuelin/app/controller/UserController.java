@@ -1,6 +1,7 @@
 package com.wangyuelin.app.controller;
 
 import com.wangyuelin.app.bean.User;
+import com.wangyuelin.app.crawer.processor.FruitFuncProcessor;
 import com.wangyuelin.app.crawer.processor.MonthFruitProcessor;
 import com.wangyuelin.app.service.itf.ITest;
 import org.slf4j.Logger;
@@ -23,6 +24,9 @@ public class UserController {
     @Autowired
     private MonthFruitProcessor monthFruitProcessor;
 
+    @Autowired
+    private FruitFuncProcessor fruitFuncProcessor;
+
 
     @RequestMapping("/getOneUser")
     @ResponseBody
@@ -41,7 +45,7 @@ public class UserController {
 
     @RequestMapping("/start_crawler")
     public void startCrawler(){
-        monthFruitProcessor.start();
+        fruitFuncProcessor.start();
 
     }
 

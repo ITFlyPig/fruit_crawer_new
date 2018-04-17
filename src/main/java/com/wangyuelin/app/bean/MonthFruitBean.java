@@ -1,5 +1,6 @@
 package com.wangyuelin.app.bean;
 
+import javax.persistence.Column;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 import java.util.List;

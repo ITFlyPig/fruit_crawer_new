@@ -4,6 +4,8 @@ import com.wangyuelin.app.bean.MonthFruitBean;
 import com.wangyuelin.app.config.mybatis.baseMapper.BaseMapper;
 import org.apache.ibatis.annotations.*;
 
+import java.util.List;
+
 @Mapper
 public interface MonthFruitDao extends BaseMapper<MonthFruitBean> {
 
@@ -16,6 +18,8 @@ public interface MonthFruitDao extends BaseMapper<MonthFruitBean> {
     @Insert("insert into month_fruit(fruitStr, monthNum, month) values(#{monthFruit.fruitStr}, #{monthFruit.monthNum}, #{monthFruit.month})")
     void add(@Param("monthFruit") MonthFruitBean monthFruitBean);
 
+    @Select("select month as month, monthNum as monthNum ,fruitStr as fruitStr from month_fruit")
+    List<MonthFruitBean> getAll();
 
 
 }
