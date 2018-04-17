@@ -1,6 +1,7 @@
 package com.wangyuelin.app.controller;
 
 import com.wangyuelin.app.bean.User;
+import com.wangyuelin.app.crawer.processor.MonthFruitProcessor;
 import com.wangyuelin.app.service.itf.ITest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,6 +20,9 @@ public class UserController {
     @Autowired
     private ITest test;
 
+    @Autowired
+    private MonthFruitProcessor monthFruitProcessor;
+
 
     @RequestMapping("/getOneUser")
     @ResponseBody
@@ -34,5 +38,12 @@ public class UserController {
         logger.info("getOneUser");
         return test.getAll();
     }
+
+    @RequestMapping("/start_crawler")
+    public void startCrawler(){
+        monthFruitProcessor.start();
+
+    }
+
 
 }
